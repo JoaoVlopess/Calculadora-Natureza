@@ -16,21 +16,28 @@ var secondNeg = []
 negacao(firstProp, firstNeg)
 negacao(secondProp, secondNeg)
 
-console.log(firstNeg)
-
-console.log(secondProp)
-
 
 function atualizarVisor(clickedButton) {
     var buttonValue = clickedButton.currentTarget.getAttribute('data-item');
 
 
     if (buttonValue != "=" && buttonValue != "AC") {
-        if (buttonValue != "DEL" && arrayVisor.length < 5) {
-            arrayVisor.push(buttonValue);
-        } else if (buttonValue == "DEL") {
+        if(buttonValue != "DEL" && arrayVisor.length < 5){
+            if ((buttonValue == '⋀' || buttonValue == '⋁' || buttonValue == '⇿' || buttonValue == '⇾') && (arrayVisor.indexOf("⋀")== -1 && arrayVisor.indexOf("⋁")== -1 && arrayVisor.indexOf("⇿")== -1 && arrayVisor.indexOf("⇾")== -1 )) {
+                arrayVisor.push(buttonValue);
+            } 
+            else if((buttonValue == 'p' || buttonValue == 'q' || buttonValue == 'r' || buttonValue == 's')){
+                arrayVisor.push(buttonValue);
+    
+            }else if(buttonValue == '~' && (arrayVisor[arrayVisor.length-1] != '~' && arrayVisor[arrayVisor.length-1] != 'p' && arrayVisor[arrayVisor.length-1] != 'q' && arrayVisor[arrayVisor.length-1] != 'r' && arrayVisor[arrayVisor.length-1] != 's')){
+                console.log(arrayVisor[arrayVisor.length-1])
+                arrayVisor.push(buttonValue);
+     
+            }
+        }else if (buttonValue == "DEL") {
             arrayVisor.pop();
         }
+
 
         let arrayFormatado = arrayVisor.join('');
         visor.innerHTML = arrayFormatado;
@@ -40,6 +47,8 @@ function atualizarVisor(clickedButton) {
 
     } else if (buttonValue == "AC") {
         visor.innerHTML = "";
+        maxProp = 0;
+        maxNeg = 0;
         arrayVisor = []
     }
 
